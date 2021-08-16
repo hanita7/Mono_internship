@@ -116,7 +116,9 @@ namespace Shapes
 
         public override float Area()
         {
-            return (sideA * sideB * (float)Math.Sin(sideC)) / 2;
+            float s = (sideA + sideB + sideC) / 2;
+            return (float)Math.Sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
+
         }
     }
 
@@ -130,6 +132,11 @@ namespace Shapes
             Console.Write("Enter circle radius: ");
             radiusString = Console.ReadLine();
             radius = float.Parse(radiusString);
+            if(radius<=0)
+            {
+                Console.WriteLine("Radius must be positive.");
+                return;
+            }
 
             Circle circle = new Circle(radius);
             Console.WriteLine("Circle created!");
@@ -148,6 +155,11 @@ namespace Shapes
             heightString = Console.ReadLine();
             width = float.Parse(widthString);
             height = float.Parse(heightString);
+            if (width<=0 || height <= 0)
+            {
+                Console.WriteLine("Width and height must be positive.");
+                return;
+            }
 
             Rectangle rectangle = new Rectangle(width, height);
             Console.WriteLine("Rectangle created!");
@@ -169,6 +181,11 @@ namespace Shapes
             sideA = float.Parse(aString);
             sideB = float.Parse(bString);
             sideC = float.Parse(cString);
+            if (sideA <= 0 || sideB <= 0 || sideC <= 0)
+            {
+                Console.WriteLine("Sides must be positive.");
+                return;
+            }
 
             Triangle triangle = new Triangle(sideA, sideB, sideC);
             Console.WriteLine("Triangle created!");
