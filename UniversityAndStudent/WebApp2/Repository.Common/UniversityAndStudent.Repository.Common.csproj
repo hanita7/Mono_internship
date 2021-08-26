@@ -91,6 +91,10 @@
       <Project>{BC71A503-DB49-4A4D-8136-3EFDA3693B0D}</Project>
       <Name>UniversityAndStudent.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\University.Common\UniversityAndStudent.Common.csproj">
+      <Project>{0b5f5dc6-7c76-4e14-92ba-c8e6de0b429c}</Project>
+      <Name>UniversityAndStudent.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

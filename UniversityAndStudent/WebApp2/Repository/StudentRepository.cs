@@ -21,14 +21,13 @@ namespace Repository
                                         + "TrustServerCertificate=False;ApplicationIntent=ReadWrite;"
                                         + "MultiSubnetFailover=False";
 
-        public async Task<List<IStudent>> GetAllStudentsAsync(string sort, string order)
+        public async Task<List<IStudent>> GetAllStudentsAsync(Sort sorter)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION))
             {
                 connection.Open();
 
-                Sort add = new Sort();
-                string queryString = "SELECT * FROM student " + add.SortBy(sort, order) + ";";
+                string queryString = "SELECT * FROM student " + sorter.SortBy() + ";";
                 SqlCommand command = new SqlCommand(queryString, connection);
 
                 SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -50,14 +49,13 @@ namespace Repository
                 }
             }
         }
-        public async Task<List<IStudent>> GetAllStudentsAsync(int pageNum, int pageSize)
+        public async Task<List<IStudent>> GetAllStudentsAsync(Sort sorter, Paging pager)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION))
             {
                 connection.Open();
 
-                Paging add = new Paging(pageNum, pageSize);
-                string queryString = "SELECT * FROM student " + add.Pagination() + ";";
+                string queryString = "SELECT * FROM student " + sorter.SortBy() + pager.Pagination() + ";";
                 SqlCommand command = new SqlCommand(queryString, connection);
 
                 SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -79,7 +77,35 @@ namespace Repository
                 }
             }
         }
-        
+        public async Task<List<IStudent>> GetAllStudentsAsync(StudentFilter studentFilter)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION))
+            {
+                connection.Open();
+
+                string queryString = "SELECT * FROM student " + studentFilter.StudentFiltering() + ";";
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    List<IStudent> uniList = new List<IStudent>();
+                    while (reader.Read())
+                    {
+                        IStudent s = new Student(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
+                        uniList.Add(s);
+                    }
+                    reader.Close();
+
+                    return uniList;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public async Task<List<IStudent>> GetStudentByNameAsync(string studentName)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION))

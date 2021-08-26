@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniversityAndStudent.Common;
 
 namespace Repository.Common
 {
     public interface IStudentRepository
     {
-        Task<List<IStudent>> GetAllStudentsAsync(string sort, string order);
-        Task<List<IStudent>> GetAllStudentsAsync(int pageNum, int pageSize);
-        //Task<List<IUniversity>> GetAllStudentsAsync(string attribute, string operators, string filter);
+        Task<List<IStudent>> GetAllStudentsAsync(Sort sorter);
+        Task<List<IStudent>> GetAllStudentsAsync(Sort sorter,Paging pager);
+        Task<List<IStudent>> GetAllStudentsAsync(StudentFilter studentFilter);
         Task<List<IStudent>> GetStudentByNameAsync(string studentName);
         Task<IStudent> GetStudentByOibAsync(int studentOib);
         Task<int> PostStudentAsync(IStudent student);

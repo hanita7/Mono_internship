@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniversityAndStudent.Common;
 
 namespace Service
 {
@@ -18,13 +19,17 @@ namespace Service
             StudentRepo = studentRepo;
         }
 
-        public async Task<List<IStudent>> GetAllStudentsAsync(string sort, string order)
+        public async Task<List<IStudent>> GetAllStudentsAsync(Sort sorter)
         {
-            return await StudentRepo.GetAllStudentsAsync(sort, order);
+            return await StudentRepo.GetAllStudentsAsync(sorter);
         }
-        public async Task<List<IStudent>> GetAllStudentsAsync(int pageNum, int pageSize)
+        public async Task<List<IStudent>> GetAllStudentsAsync(Sort sorter,Paging pager)
         {
-           return await StudentRepo.GetAllStudentsAsync(pageNum, pageSize);
+           return await StudentRepo.GetAllStudentsAsync(sorter, pager);
+        }
+        public async Task<List<IStudent>> GetAllStudentsAsync(StudentFilter studentFilter)
+        {
+            return await StudentRepo.GetAllStudentsAsync(studentFilter);
         }
         public async Task<List<IStudent>> GetStudentByNameAsync(string studentName)
         {

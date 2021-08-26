@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using UniversityAndStudent.Common;
 
 namespace WebApi.Controllers
 {
@@ -22,10 +23,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/Student/all/sort_by={sort}&order={order}")]
-        public async Task<HttpResponseMessage> GetAllStudentsAsync(string sort, string order)
+        [Route("api/Student/all/sort/")]
+        public async Task<HttpResponseMessage> GetAllStudentsAsync([FromUri]Sort sorter)
         {
-            List<IStudent> studentList = await StudentService.GetAllStudentsAsync(sort, order);
+            List<IStudent> studentList = await StudentService.GetAllStudentsAsync(sorter);
             if (studentList == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "No rows found.");
@@ -36,10 +37,10 @@ namespace WebApi.Controllers
             }
         }
         [HttpGet]
-        [Route("api/Student/all/page={pageNum}&results_per_page={pageSize}")]
-        public async Task<HttpResponseMessage> GetAllStudentsAsync(int pageNum, int pageSize)
+        [Route("api/Student/all/paging")]
+        public async Task<HttpResponseMessage> GetAllStudentsAsync([FromUri]Sort sorter,[FromUri]Paging pager)
         {
-            List<IStudent> studentList = await StudentService.GetAllStudentsAsync(pageNum, pageSize);
+            List<IStudent> studentList = await StudentService.GetAllStudentsAsync(sorter, pager);
             if (studentList == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "No rows found.");
@@ -49,7 +50,20 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, studentList);
             }
         }
-
+        [HttpGet]
+        [Route("api/Student/all/filtering")]
+        public async Task<HttpResponseMessage> GetAllStudentsAsync([FromUri] StudentFilter studentFilter)
+        {
+            List<IStudent> studentList = await StudentService.GetAllStudentsAsync(studentFilter);
+            if (studentList == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "No rows found.");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, studentList);
+            }
+        }
 
         [HttpGet]
         [Route("api/Student/name/{studentName}")]

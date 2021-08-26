@@ -18,17 +18,17 @@ namespace Service
             UniRepo = uniRepo;
         }
 
-        public async Task<List<IUniversity>> GetAllUnisAsync(string sort, string order)
+        public async Task<List<IUniversity>> GetAllUnisAsync(Sort sorter)
         {
-            return await UniRepo.GetAllUnisAsync(sort, order);
+            return await UniRepo.GetAllUnisAsync(sorter);
         }
-        public async Task<List<IUniversity>> GetAllUnisAsync(int pageNum, int pageSize)
+        public async Task<List<IUniversity>> GetAllUnisAsync(Paging pager)
         {
-            return await UniRepo.GetAllUnisAsync(pageNum, pageSize);
+            return await UniRepo.GetAllUnisAsync(pager);
         }
-        public async Task<List<IUniversity>> GetAllUnisAsync(string attribute, string operators, string filter)
+        public async Task<List<IUniversity>> GetAllUnisAsync(UniversityFilter uniFilter)
         {
-            return await UniRepo.GetAllUnisAsync(attribute, operators, filter);
+            return await UniRepo.GetAllUnisAsync(uniFilter);
         }
         public async Task<List<IUniversity>> GetUniByNameAsync(string uniName)
         {

@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Threading.Tasks;
+using UniversityAndStudent.Common;
 
 namespace WebApp2.Controllers
 {
@@ -26,10 +27,10 @@ namespace WebApp2.Controllers
                                         + "MultiSubnetFailover=False";
 
         [HttpGet]
-        [Route("api/University/all/sort_by={sort}&order={order}")]
-        public async Task<HttpResponseMessage> GetAllUnisAsync(string sort, string order)
+        [Route("api/University/all/sort/")]
+        public async Task<HttpResponseMessage> GetAllUnisAsync([FromUri]Sort sorter)
         {
-            List<IUniversity> uniList = await UniService.GetAllUnisAsync(sort, order);
+            List<IUniversity> uniList = await UniService.GetAllUnisAsync(sorter);
 
             if (uniList == null)
             {
@@ -42,10 +43,10 @@ namespace WebApp2.Controllers
             }
         }
         [HttpGet]
-        [Route("api/University/all/page={pageNum}&results_per_page={pageSize}")]
-        public async Task<HttpResponseMessage> GetAllUnisAsync(int pageNum, int pageSize)
+        [Route("api/University/all/paging")]
+        public async Task<HttpResponseMessage> GetAllUnisAsync([FromUri]Paging pager)
         {
-            List<IUniversity> uniList = await UniService.GetAllUnisAsync(pageNum, pageSize);
+            List<IUniversity> uniList = await UniService.GetAllUnisAsync(pager);
 
             if (uniList == null)
             {
@@ -58,10 +59,10 @@ namespace WebApp2.Controllers
             }
         }
         [HttpGet]
-        [Route("api/University/all/{attribute}[{_operator}={filter}]")]
-        public async Task<HttpResponseMessage> GetAllUnisAsync(string attribute, string operators, string filter)
+        [Route("api/University/all/")]
+        public async Task<HttpResponseMessage> GetAllUnisAsync([FromUri]UniversityFilter uniFilter)
         {
-            List<IUniversity> uniList = await UniService.GetAllUnisAsync(attribute, operators, filter);
+            List<IUniversity> uniList = await UniService.GetAllUnisAsync(uniFilter);
 
             if (uniList == null)
             {

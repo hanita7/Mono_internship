@@ -10,7 +10,8 @@ namespace UniversityAndStudent.Common
     {
         public int PageNum { get; set; }
         public int PageSize { get; set; }
-        public Paging(int pageNum, int pageSize) 
+        public Paging() { }
+        public Paging(string column, string order, int pageNum, int pageSize) 
         {
             PageNum = pageNum;
             PageSize = pageSize;
@@ -18,7 +19,8 @@ namespace UniversityAndStudent.Common
         
         public string Pagination()
         {
-            return "LIMIT " + PageNum.ToString() + " OFFSET " + PageSize.ToString();
+            return " OFFSET " + ((PageNum - 1) * PageSize).ToString() + " ROWS FETCH NEXT "
+                    + PageSize.ToString() + " ROWS ONLY";
         }
     }
 }

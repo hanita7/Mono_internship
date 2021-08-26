@@ -44,6 +44,7 @@
     <Compile Include="Paging.cs" />
     <Compile Include="Sort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StudentFilter.cs" />
     <Compile Include="UniversityFilter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

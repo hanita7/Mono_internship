@@ -8,11 +8,18 @@ namespace UniversityAndStudent.Common
 {
     public class Sort
     {
+        public string Column { get; set; }
+        public string Order { get; set; }
         public Sort() { }
-
-        public string SortBy(string sort, string order)
+        public Sort(string sort, string order) 
         {
-            return "ORDER BY " + sort + " " + order.ToUpper();
+            Column = sort;
+            Order = order;
+        }
+
+        public string SortBy()
+        {
+            return "ORDER BY " + Column + " " + Order.ToUpper();
         }
     }
 }

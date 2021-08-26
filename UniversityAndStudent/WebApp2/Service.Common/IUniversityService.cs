@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniversityAndStudent.Common;
 
 namespace Service.Common
 {
     public interface IUniversityService
     {
-        Task<List<IUniversity>> GetAllUnisAsync(string sort, string order);
-        Task<List<IUniversity>> GetAllUnisAsync(int pageNum, int pageSize);
-        Task<List<IUniversity>> GetAllUnisAsync(string attribute, string operators, string filter);
+        Task<List<IUniversity>> GetAllUnisAsync(Sort sorter);
+        Task<List<IUniversity>> GetAllUnisAsync(Paging pager);
+        Task<List<IUniversity>> GetAllUnisAsync(UniversityFilter uniFilter);
         Task<List<IUniversity>> GetUniByNameAsync(string uniName);
         Task<IUniversity> GetUniByOibAsync(int uniOib);
         Task<bool> PostUniversityAsync(IUniversity uni);

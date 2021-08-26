@@ -158,6 +158,10 @@
       <Project>{8a59bfe8-4a76-4c46-8a59-bda1f1a1499f}</Project>
       <Name>UniversityAndStudent.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\University.Common\UniversityAndStudent.Common.csproj">
+      <Project>{0b5f5dc6-7c76-4e14-92ba-c8e6de0b429c}</Project>
+      <Name>UniversityAndStudent.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

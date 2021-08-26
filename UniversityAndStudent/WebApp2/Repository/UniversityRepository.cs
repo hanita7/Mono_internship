@@ -21,14 +21,13 @@ namespace Repository
                                         + "TrustServerCertificate=False;ApplicationIntent=ReadWrite;"
                                         + "MultiSubnetFailover=False";
 
-        public async Task<List<IUniversity>> GetAllUnisAsync(string sort, string order)
+        public async Task<List<IUniversity>> GetAllUnisAsync(Sort sorter)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION))
             {
                 connection.Open();
 
-                Sort add = new Sort();
-                string queryString = "SELECT * FROM university" + add.SortBy(sort, order) + ";";
+                string queryString = "SELECT * FROM university" + sorter.SortBy() + ";";
 
                 SqlCommand command = new SqlCommand(queryString, connection);
 
@@ -52,14 +51,13 @@ namespace Repository
                 }
             }
         }
-        public async Task<List<IUniversity>> GetAllUnisAsync(int pageNum, int pageSize)
+        public async Task<List<IUniversity>> GetAllUnisAsync(Paging pager)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION))
             {
                 connection.Open();
 
-                Paging add = new Paging(pageNum, pageSize);
-                string queryString = "SELECT * FROM university" + add.Pagination() + ";";
+                string queryString = "SELECT * FROM university" + pager.Pagination() + ";";
 
                 SqlCommand command = new SqlCommand(queryString, connection);
 
@@ -83,13 +81,12 @@ namespace Repository
                 }
             }
         }
-        public async Task<List<IUniversity>> GetAllUnisAsync(string attribute, string operators, string filter)
+        public async Task<List<IUniversity>> GetAllUnisAsync(UniversityFilter uniFilter)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION))
             {
                 connection.Open();
 
-                UniversityFilter add = new UniversityFilter();
                 string queryString = "SELECT * FROM university;";
 
                 SqlCommand command = new SqlCommand(queryString, connection);
